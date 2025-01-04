@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تسجيل الدخول - جامعة الملك خالد</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #d8e5cc;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 100px auto;
+      padding: 20px;
+      background-color: #c7dec9;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    img {
+      width: 100px;
+      margin: 20px auto;
+    }
+
+    h1 {
+      color: #2e7d32;
+      margin-bottom: 20px;
+    }
+
+    .input-container {
+      position: relative;
+      margin-bottom: 15px;
+    }
+
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      padding-left: 40px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .eye-icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 20px;
+      display: none;
+    }
+
+    button {
+      width: 100%;
+      background-color: #2e7d32;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1b5e20;
+    }
+
+    .message {
+      color: red;
+      margin: 10px 0;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 20px;
+      padding: 10px;
+      color: #fff;
+    }
+
+    a {
+      color: #2e7d32;
+      text-decoration: none;
+      font-size: 14px;
+      display: block;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="logo.png" alt="شعار جامعة الملك خالد">
+    <h1>تسجيل الدخول</h1>
+    <div id="message" class="message"></div>
+    <form id="loginForm" onsubmit="return login(event)">
+      <div class="input-container">
+        <input type="text" id="studentId" placeholder="رقم الطلب" required>
+      </div>
+
+      <div class="input-container">
+        <input type="password" id="password" placeholder="كلمة السر" required>
+        <span class="eye-icon" id="eyeIcon" onclick="togglePasswordVisibility()"></span>
+      </div>
+
+      <button type="submit">دخول</button>
+      
+      <a href="#" onclick="showSupportMessage()">نسيت كلمة المرور؟</a>
+      <a href="#" onclick="changePassword()">تغيير كلمة المرور</a>
+    </form>
+  </div>
+
+  <footer>
+    جميع الحقوق محفوظة لدى جامعة الملك فيصل &copy; 2024
+  </footer>
+
+  <script>
+    function togglePasswordVisibility() {
+      const passwordInput = document.getElementById('password');
+      const eyeIcon = document.getElementById('eyeIcon');
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eyeIcon.style.display = "none";
+      } else {
+        passwordInput.type = "password";
+        eyeIcon.style.display = "inline";
+      }
+    }
+
+    document.getElementById('password').addEventListener('input', function() {
+      const eyeIcon = document.getElementById('eyeIcon');
+      if (this.value) {
+        eyeIcon.style.display = "inline";
+      } else {
+        eyeIcon.style.display = "none";
+      }
+    });
+
+    function login(event) {
+      event.preventDefault();
+      const studentId = document.getElementById('studentId').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const messageDiv = document.getElementById('message');
+
+      messageDiv.textContent = "";
+
+      if (studentId === "333"  && password === "1101838270") {
+        window.location.href = "payment.html";
+      }else{
+
+        messageDiv.textContent = "خطأ: الرقم الجامعي أو كلمة المرور غير صحيحة.";
+
+      }
+      
+      
+      
+      if (studentId === "463910515" && password === "1101838270") {
+        window.location.href = "student.html";
+      } else {
+        
+        messageDiv.textContent = "خطأ: الرقم الجامعي أو كلمة المرور غير صحيحة.";
+      }
+    }
+
+    function showSupportMessage() {
+      alert("يرجى التواصل مع الدعم الفني للحصول على المساعدة في استعادة كلمة المرور.");
+    }
+
+    function changePassword() {
+      alert("سيتم توجيهك إلى صفحة تغيير كلمة المرور.");
+      window.location.href = "changepass.html";
+    }
+  </script>
+</body>
+</html>

